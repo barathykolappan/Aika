@@ -1,4 +1,7 @@
-<?php
+<?php 
+
+$method = $_SERVER['REQUEST_METHOD'];
+
 // Process only when method is POST
 if($method == 'POST'){
 	$requestBody = file_get_contents('php://input');
@@ -6,7 +9,7 @@ if($method == 'POST'){
 
 	$text = $json->result->parameters->text;
 
-	switch ($text) {
+		switch ($text) {
 		case 'Godfather':
 			$speech = "Awesome work by the crew.";
 			break;
