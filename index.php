@@ -7,7 +7,7 @@ if($method == 'POST'){
 	$requestBody = file_get_contents('php://input');
 	$json = json_decode($requestBody);
     $html=file_get_contents("https://www.rottentomatoes.com/m/godfather/");
-    $speech=explode("<span class=\"meter-vale superPageFontColor\"><span>",explode("</span>",$html)[0])[1];
+    $speech=explode("<span>",explode("</span>",$html)[0])[1];
     $response = new \stdClass();
 	$response->speech = $speech;
 	$response->displayText = $speech;
