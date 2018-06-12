@@ -35,7 +35,7 @@ if($method == 'POST'){
 	"The Prestige" => int(85),
 	"Prestige" => int(85)
 );
-    $split=int($array[$text]);
+    $split=$array[$text];
 	$response = new \stdClass();
 	$response->speech = $split;
 	$response->displayText = $split;
