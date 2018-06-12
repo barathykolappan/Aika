@@ -8,13 +8,17 @@ if($method == 'POST'){
 	$json = json_decode($requestBody);
 
 	$text = $json->result->parameters->text;
+	$arr= array(
+	'Godfather'=>'90',
+	'Shawshank redemption'=>'80');
+	$score=$arr[$text];
 
-		switch ($text) {
-		case 'Godfather':
+		switch ($score) {
+		case '90':
 			$speech = "Awesome work by the crew.";
 			break;
 
-		case 'Shawshank redemption':
+		case '80':
 			$speech = "Worth your tickets.";
 			break;
 
