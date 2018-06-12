@@ -6,21 +6,16 @@ if($method == 'POST'){
 
 	$text = $json->result->parameters->text;
 
-	$array = array(
-    "Shawshank redemption" =>'90',
-	"Godfather" =>'80',
-	"The Dark Knight" =>'70');
-    $split=$array[$text];
-	switch ($split) {
-		case '90':
+	switch ($text) {
+		case 'Godfather':
 			$speech = "Awesome work by the crew.";
 			break;
 
-		case '80':
+		case 'Shawshank redemption':
 			$speech = "Worth your tickets.";
 			break;
 
-		case '70':
+		case 'The dark knight':
 			$speech = "Decent movie.";
 			break;
 		
