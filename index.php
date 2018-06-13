@@ -29,7 +29,7 @@ class Imdb
   private function scrapeMovieInfo($imdbUrl, $getExtraInfo = true)
   {
     $arr = array();
-    $html = $this->geturl("${imdbUrl}");
+    $html = $this->geturl("${imdbUrl}reference");
     $title_id = $this->match('/<link rel="canonical" href="https:\/\/www.imdb.com\/title\/(tt\d+)\/reference" \/>/ms', $html, 1);
     if(empty($title_id) || !preg_match("/tt\d+/i", $title_id)) {
       $arr['error'] = "No Title found on IMDb!";
@@ -39,7 +39,6 @@ class Imdb
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
     $arr['plot'] = trim(strip_tags($this->match('/<td.*?>Plot Summary<\/td>.*?<td>.*?<p>(.*?)</ms', $html, 1)));
 	$score=$arr['rating']*10;
-    
 	if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
 		elseif($score>90 AND $score<=99)
@@ -64,8 +63,7 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="I'm Sorry, I just hit a glitch.";
-	$com0=$arr['title']." is about ".$arr['plot']."       ";
-	$com=$com0."Aika's verdict is ".$speech;
+	$com=$arr['title']." is about ".$arr['plot']." Aika's verdict is ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com;
 	$response->displayText = $com;
