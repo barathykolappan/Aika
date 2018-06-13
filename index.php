@@ -37,7 +37,7 @@ class Imdb
     }
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
-    $arr['plot'] = trim(strip_tags($this->match('/<td.*?>Plot Summary<\/td>.*?<td>.*?<p>(.*?)</ms', $html, 1)));
+   
 	$score=$arr['rating']*10;
 	if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
@@ -63,7 +63,7 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="I'm Sorry, I just hit a glitch.";
-	$com=$arr['title']." is about ".$arr['plot']." Aika's verdict is ".$speech;
+	$com=" Aika's verdict is ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com;
 	$response->displayText = $com;
