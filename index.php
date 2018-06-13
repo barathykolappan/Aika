@@ -65,11 +65,10 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="I'm Sorry, I just hit a glitch.";
-	$com0=$arr['title']." is about ".$ssplit.".";
-	$com=$com0."\nAika's verdict is ".$speech;
-	$coms=$com0."                               Aika;s verdict is ".$speech;
+	$com0=$arr['title']." is about ".$ssplit;
+	$com=$com0."\nAika\'s verdict is ".$speech;
 	$response = new \stdClass();
-	$response->speech = $coms;
+	$response->speech = $com;
 	$response->displayText = $com;
 	$response->source = "webhook";
 	echo json_encode($response);
