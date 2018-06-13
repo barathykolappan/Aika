@@ -63,7 +63,7 @@ class Imdb
 		elseif($score>0 AND $score<=10)
 		$speech="Please. No. I only speak ethical language.";
 		else
-		$speech="I'm Sorry, I just hit a glitch.";
+		$speech="Relative perspectives. It's upto you to decide.";
 	$split=ltrim($split);
 	$com=$arr['title']." narrates, \n".$split."."."\n\n Aika's verdict is, ".$speech;
 	$com0=$arr['title']." narrates,          ".$split."."."                                            Aika's verdict is, ".$speech;
