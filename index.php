@@ -37,7 +37,7 @@ class Imdb
     }
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
-    $split=explode(".",explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1])[0];
+   // $split=explode(".",explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1])[0];
 	$score=$arr['rating']*10;
 	    if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
