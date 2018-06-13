@@ -65,8 +65,8 @@ class Imdb
 		else
 		$speech="I'm Sorry, I just hit a glitch.";
 	$split=ltrim($split);
-	$com=$arr['title']." narrates, ".$split."."."\n\n Aika's verdict is, ".$speech;
-	$com0=$arr['title']." narrates, ".$split."."."                                            Aika's verdict is, ".$speech;
+	$com=$arr['title']." narrates, \n".$split."."."\n\n Aika's verdict is, ".$speech;
+	$com0=$arr['title']." narrates,          ".$split."."."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
 	$response->displayText = $com;
