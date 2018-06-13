@@ -40,8 +40,7 @@ class Imdb
     $split=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
 	$ssplit=explode(".",$split)[0];
 	$score=$arr['rating']*10;
-    
-	if($score==100)
+	    if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
 		elseif($score>90 AND $score<=99)
 		$speech = "Awesome here, Awesome there, Awesome everywhere. Should be worth your while.";
@@ -65,8 +64,8 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="I'm Sorry, I just hit a glitch.";
-	$com0=$arr['title']." is about ".$ssplit;
-	$com=$com0."\nAika\'s verdict is ".$speech;
+	$com=$arr['title']." is about ".$ssplit;
+	//$com=$com0."\nAika\'s verdict is ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com;
 	$response->displayText = $com;
