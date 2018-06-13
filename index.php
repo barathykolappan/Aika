@@ -64,7 +64,8 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="I'm Sorry, I just hit a glitch.";
-	$com=$arr['title']." is about ".$arr['plot']."<BR>"."Aika's verdict is ".$speech;
+	$com0=$arr['title']." is about ".$arr['plot']."       ";
+	$com=$com0."Aika's verdict is ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com;
 	$response->displayText = $com;
