@@ -54,9 +54,9 @@ class Imdb
 		$speech="An absolute Masterpiece!, Dare not miss it.";
 		elseif($score>90 AND $score<=99)
 		$speech = "Awesome here, Awesome there, Awesome everywhere. Should be worth your while.";
-	    elseif($score>80 AND $score<=90)
+	    elseif($score>75 AND $score<=90)
 		$speech="This is a fine piece. A definite worth for your tickets.";
-		elseif($score>70 AND $score<=80)
+		elseif($score>70 AND $score<=75)
 		$speech="A Decent flick, which is an one time watch.";
 		elseif($score>60 AND $score<=70)
 		$speech="A Fair storyline, that could have been better.";
