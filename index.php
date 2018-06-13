@@ -47,9 +47,9 @@ class Imdb
 	    elseif($score>80 AND $score<=90)
 		$speech="This is a fine piece. A definite worth for your tickets.";
 		elseif($score>70 AND $score<=80)
-		$speech="A Decent flick, which is an One time watch.";
+		$speech="A Decent flick, which is an one time watch.";
 		elseif($score>60 AND $score<=70)
-		$speech="A Fair storyline, that could've been better.";
+		$speech="A Fair storyline, that could have been better.";
 		elseif($score>50 AND $score<=60)
 		$speech="A Satisfactory flick, that has just passed the line.";
 		elseif($score>40 AND $score<=50)
@@ -59,7 +59,7 @@ class Imdb
 		elseif($score>20 AND $score<=30)
 		$speech="Would you like to burn the money you would spend on this piece? Charity, honey.";
 		elseif($score>10 AND $score<=20)
-		$speech="Absolute garbage, it is. If I were you, I'd rather work out Calculus.";
+		$speech="Absolute garbage, it is. If I were you, I would rather work out Calculus.";
 		elseif($score>0 AND $score<=10)
 		$speech="Please. No. I only speak ethical language.";
 		else
