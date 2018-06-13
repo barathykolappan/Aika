@@ -37,7 +37,7 @@ class Imdb
     }
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
-   
+    $split=explode(".",explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1])[0];
 	$score=$arr['rating']*10;
 	if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
@@ -63,10 +63,10 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="I'm Sorry, I just hit a glitch.";
-	$com=" Aika's verdict is ".$speech;
+	$com=" Aika's verdict is, ".$speech;
 	$response = new \stdClass();
-	$response->speech = $com;
-	$response->displayText = $com;
+	$response->speech = $split;
+	$response->displayText = $split;
 	$response->source = "webhook";
 	echo json_encode($response);
   }
