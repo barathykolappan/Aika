@@ -65,8 +65,9 @@ class Imdb
 		else
 		$speech="I'm Sorry, I just hit a glitch.";
 	$com=$arr['title']." is about, ".$split."."." Aika's verdict is, ".$speech;
+	$com0=$arr['title']." is about, ".$split."."."                                       Aika's verdict is, ".$speech;
 	$response = new \stdClass();
-	$response->speech = $com;
+	$response->speech = $com0;
 	$response->displayText = $com;
 	$response->source = "webhook";
 	echo json_encode($response);
