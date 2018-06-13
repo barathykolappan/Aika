@@ -64,7 +64,7 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="I'm Sorry, I just hit a glitch.";
-	$com=$arr['title']." narrates, ".$split."."." Aika's verdict is, ".$speech;
+	$com=$arr['title']." narrates, ".$split."."."\n Aika's verdict is, ".$speech;
 	$com0=$arr['title']." narrates, ".$split."."."                                       Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
