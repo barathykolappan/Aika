@@ -65,10 +65,10 @@ class Imdb
 		$speech="I'm Sorry, I just hit a glitch.";
 	//$com=$arr['title']." is about ".$ssplit;
 	//$com=$com0."\nAika\'s verdict is ".$speech;
-	//$com=$split;
+	$com=$speech;
 	$response = new \stdClass();
-	$response->speech = $split;
-	$response->displayText = $split;
+	$response->speech = $com;
+	$response->displayText = $com;
 	$response->source = "webhook";
 	echo json_encode($response);
   }
