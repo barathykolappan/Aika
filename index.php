@@ -52,9 +52,9 @@ class Imdb
 	$score=$arr['rating']*10;
 	if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
-		elseif($score=>90 AND $score<=99)
+		elseif($score>=90 AND $score<=99)
 		$speech = "Awesome here, Awesome there, Awesome everywhere. Should be worth your while.";
-	    elseif($score>75 AND $score<90)
+	    elseif($score>75 AND $score<=90)
 		$speech="This is a fine piece. A definite worth for your tickets.";
 		elseif($score>70 AND $score<=75)
 		$speech="A Decent flick, which is an one time watch.";
