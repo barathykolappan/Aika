@@ -25,15 +25,6 @@ class Imdb
     $imdbUrl = "https://www.imdb.com/title/" . trim($imdbId) . "/";
     return $this->scrapeMovieInfo($imdbUrl, $getExtraInfo);
   }
-  public function LastFunc()
-  {
-	$com="Sorry. I didn't catch that. Try again?";
-	$response = new \stdClass();
-	$response->speech = $com;
-	$response->displayText = $com;
-	$response->source = "webhook";
-	echo json_encode($response);
-  }
   // Scrape movie information from IMDb page and return results in an array.
   private function scrapeMovieInfo($imdbUrl, $getExtraInfo = true)
   {
@@ -102,7 +93,7 @@ class Imdb
 	  case "yippy":     $nextEngine = "duckduckgo";   break;
 	  case "aol":     $nextEngine = "yippy";   break;
 	  case "yippy":     $nextEngine = "lycos";   break;
-      case "lycos":     LastFunc(); $f1=1; break;
+      case FALSE:     return NULL;
       default:        return NULL;
     }
 	if($fl==0)
