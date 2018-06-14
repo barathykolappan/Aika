@@ -25,6 +25,15 @@ class Imdb
     $imdbUrl = "https://www.imdb.com/title/" . trim($imdbId) . "/";
     return $this->scrapeMovieInfo($imdbUrl, $getExtraInfo);
   }
+  public function LastFunc()
+  {
+	$com="Sorry. I didn't catch that. Try again?";
+	$response = new \stdClass();
+	$response->speech = $com;
+	$response->displayText = $com;
+	$response->source = "webhook";
+	echo json_encode($response);
+  }
   // Scrape movie information from IMDb page and return results in an array.
   private function scrapeMovieInfo($imdbUrl, $getExtraInfo = true)
   {
@@ -37,8 +46,7 @@ class Imdb
     }
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
-	$typef=explode("<li class=\"ipl-inline-list__item\">",explode("<\/li>",$html)[0])[1];
-    if(strpos($typef,'TV-MA'))
+    if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
 	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
@@ -94,15 +102,18 @@ class Imdb
 	  case "yippy":     $nextEngine = "duckduckgo";   break;
 	  case "aol":     $nextEngine = "yippy";   break;
 	  case "yippy":     $nextEngine = "lycos";   break;
-      case FALSE:     return NULL;
+      case "lycos":     LastFunc(); $f1=1; break;
       default:        return NULL;
     }
+	if($fl==0)
+	{
     $url = "http://www.${engine}.com/search?q=imdb+" . rawurlencode($title);
     $ids = $this->match_all('/<a.*?href="https?:\/\/www.imdb.com\/title\/(tt\d+).*?".*?>.*?<\/a>/ms', $this->geturl($url), 1);
     if (!isset($ids[0]) || empty($ids[0])) //if search failed
       return $this->getIMDbIdFromSearch($title, $nextEngine); //move to next search engine
     else
       return $ids[0]; //return first IMDb result
+	}
   }
   private function geturl($url){
     $ch = curl_init();
