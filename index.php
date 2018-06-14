@@ -49,7 +49,7 @@ class Imdb
 	$split=explode("<div>",explode(".",$ssplit)[0])[1];
 	}
 	$score=$arr['rating']*10;
-	if($score==100)
+	    if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
 		elseif($score>=90 AND $score<=99)
 		$speech = "Awesome here, Awesome there, Awesome everywhere. Should be worth your while.";
@@ -82,7 +82,6 @@ class Imdb
 	$response->source = "webhook";
 	echo json_encode($response);
   }
-
   private function getIMDbIdFromSearch($title, $engine = "google"){
     switch ($engine) {
       case "google":  $nextEngine = "bing";  break;
@@ -139,7 +138,6 @@ class Imdb
       return false;
   }
 }
-
 $method = $_SERVER['REQUEST_METHOD'];
 // Process only when method is POST
 if($method == 'POST'){
@@ -148,11 +146,9 @@ if($method == 'POST'){
 	$text = $json->result->parameters->text;
 	$i = new Imdb();
     $i->getMovieInfo($text);
-
 }
 else
 {
 	echo "Method not allowed";
 }
-
 ?>
