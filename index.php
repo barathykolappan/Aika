@@ -87,15 +87,14 @@ class Imdb
   // Movie title search on Google, Bing or Ask. If search fails, return FALSE.
   private function getIMDbIdFromSearch($title, $engine = "google"){
     switch ($engine) {
-      case "google":  $nextEngine = "bing";  break;
-      case "bing":    $nextEngine = "yahoo";   break;
-	  case "yahoo":     $nextEngine = "aol";   break;
+       case "google":  $nextEngine = "bing";  break;
+      case "bing":    $nextEngine = "ask";   break;
+      case "ask":     $nextEngine = "aol";   break;
 	  case "aol":     $nextEngine = "yippy";   break;
 	  case "yippy":     $nextEngine = "duckduckgo";   break;
-	  case "duckduckgo":     $nextEngine = "yippy";   break;
-	  case "yippy":     $nextEngine = "lycos";   break;
-      case "lycos":     $nextEngine = "ask";   break;
-      case "ask":     $nextEngine = FALSE;   break;
+	  case "duckduckgo":    $nextEngine = "yahoo";   break;
+	  case "yahoo":     $nextEngine = "lycos";   break;
+      case "lycos":     $nextEngine = FALSE;   break;
       case FALSE:     return NULL;
       default:        return NULL;
     }
