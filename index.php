@@ -37,7 +37,7 @@ class Imdb
     }
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
-  if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
+    if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
 	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
@@ -49,7 +49,7 @@ class Imdb
 	$split=explode("<div>",explode(".",$ssplit)[0])[1];
 	}
 	$score=$arr['rating']*10;
-	    if($score==100)
+	if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
 		elseif($score>=90 AND $score<=99)
 		$speech = "Awesome here, Awesome there, Awesome everywhere. Should be worth your while.";
@@ -82,11 +82,8 @@ class Imdb
 	$response->source = "webhook";
 	echo json_encode($response);
   }
-
-  //************************[ Extra Functions ]******************************
-  // Movie title search on Google, Bing or Ask. If search fails, return FALSE.
   private function getIMDbIdFromSearch($title, $engine = "google"){
-      switch ($engine) {
+    switch ($engine) {
       case "google":  $nextEngine = "bing";  break;
       case "bing":    $nextEngine = "ask";   break;
       case "ask":     $nextEngine = "yahoo";   break;
@@ -98,12 +95,15 @@ class Imdb
       case FALSE:     return NULL;
       default:        return NULL;
     }
+	if($fl==0)
+	{
     $url = "http://www.${engine}.com/search?q=imdb+" . rawurlencode($title);
     $ids = $this->match_all('/<a.*?href="https?:\/\/www.imdb.com\/title\/(tt\d+).*?".*?>.*?<\/a>/ms', $this->geturl($url), 1);
     if (!isset($ids[0]) || empty($ids[0])) //if search failed
       return $this->getIMDbIdFromSearch($title, $nextEngine); //move to next search engine
     else
       return $ids[0]; //return first IMDb result
+	}
   }
   private function geturl($url){
     $ch = curl_init();
@@ -140,7 +140,6 @@ class Imdb
 }
 $method = $_SERVER['REQUEST_METHOD'];
 // Process only when method is POST
-	
 if($method == 'POST'){
 	$requestBody = file_get_contents('php://input');
 	$json = json_decode($requestBody);
