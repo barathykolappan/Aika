@@ -97,7 +97,7 @@ class Imdb
     }
 	if($fl==0)
 	{
-    $url = "http://www.${engine}.com/search?q="+rawurlencode($title)+" IMDb";
+    $url = "http://www.${engine}.com/search?q=IMDb"+rawurlencode($title);
     $ids = $this->match_all('/<a.*?href="https?:\/\/www.imdb.com\/title\/(tt\d+).*?".*?>.*?<\/a>/ms', $this->geturl($url), 1);
     if (!isset($ids[0]) || empty($ids[0])) //if search failed
       return $this->getIMDbIdFromSearch($title, $nextEngine); //move to next search engine
