@@ -41,12 +41,14 @@ class Imdb
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
 	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
-	$split=explode("<div>",explode(".",$srplit)[0])[1];
+	$srsplit=$srplit."~";
+	$split=explode("<div>",explode("~",$srsplit)[0])[1];
 	}
 	else
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
-	$split=explode("<div>",explode(".",$ssplit)[0])[1];
+	$srsplit=$ssplit."~";
+	$split=explode("<div>",explode("~",$srsplit)[0])[1];
 	}
 	$score=$arr['rating']*10;
 	if($score==100)
@@ -74,7 +76,7 @@ class Imdb
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
 	$split=ltrim($split);
-	$com=$arr['title']." narrates, \n".$split."."."\n\n Aika's verdict is, ".$speech;
+	$com=$arr['title']." narrates, \n".$split."."."\n\nAika's verdict is, ".$speech;
 	$com0=$arr['title']." narrates,          ".$split."."."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
@@ -97,7 +99,7 @@ class Imdb
     }
 	if($fl==0)
 	{
-    $url = "http://www.${engine}.com/search?q=imdb+" . rawurlencode($title);
+    $url = "http://www.${engine}.com/search?q=".rawurlencode($title)." IMDb";
     $ids = $this->match_all('/<a.*?href="https?:\/\/www.imdb.com\/title\/(tt\d+).*?".*?>.*?<\/a>/ms', $this->geturl($url), 1);
     if (!isset($ids[0]) || empty($ids[0])) //if search failed
       return $this->getIMDbIdFromSearch($title, $nextEngine); //move to next search engine
