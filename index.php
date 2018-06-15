@@ -41,27 +41,11 @@ class Imdb
 	{
 	$split=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
 	$split2=explode("<hr>",explode("<\/div>",$split)[0])[1];
-	if(strpos($split2, 'Mr.'))
-	str_replace('Mr.', 'Mister', $split2);
-    if(strpos($split2, 'Mrs.'))
-	str_replace('Mrs.', 'Mistress', $split2);
-    if(strpos($split2, 'Dr.'))
-	str_replace('Dr.', 'Doctor', $split2);
-    if(strpos($split2, 'Prof.'))
-	str_replace('Prof.', 'Professor', $split2);
 	$fsplit=explode("<div>",explode(".",$split2)[0])[1];
 	}
 	else
 	{
 	$split=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
-	if(strpos($split, 'Mr.'))
-	str_replace('Mr.', 'Mister', $split);
-    if(strpos($split, 'Mrs.'))
-	str_replace('Mrs.', 'Mistress', $split);
-    if(strpos($split, 'Dr.'))
-	str_replace('Dr.', 'Doctor', $split);
-    if(strpos($split, 'Prof.'))
-	str_replace('Prof.', 'Professor', $split);
 	$fsplit=explode("<div>",explode(".",$split)[0])[1];
 	}
 	$score=$arr['rating']*10;
@@ -91,7 +75,7 @@ class Imdb
 		$speech="Relative perspectives. It's upto you to decide.";
 	$fsplit=ltrim($fsplit);
 	$com=$arr['title']." narrates, \n".$fsplit."."."\n\nAika's verdict is, ".$speech;
-	$com0=$arr['title']." narrates,          ".$split."."."                                            Aika's verdict is, ".$speech;
+	$com0=$arr['title']." narrates,          ".$fsplit."."."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
 	$response->displayText = $com;
