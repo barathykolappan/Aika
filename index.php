@@ -41,20 +41,28 @@ class Imdb
 	{
 	$split=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
 	$split2=explode("<hr>",explode("<\/div>",$split)[0])[1];
+	if(strpos($split2, 'Mr.'))
 	str_replace('Mr.', 'Mister', $split2);
+    if(strpos($split2, 'Mrs.'))
 	str_replace('Mrs.', 'Mistress', $split2);
+    if(strpos($split2, 'Dr.'))
 	str_replace('Dr.', 'Doctor', $split2);
+    if(strpos($split2, 'Prof.'))
 	str_replace('Prof.', 'Professor', $split2);
 	$fsplit=explode("<div>",explode(".",$split2)[0])[1];
 	}
 	else
 	{
 	$split=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
+	if(strpos($split, 'Mr.'))
 	str_replace('Mr.', 'Mister', $split);
+    if(strpos($split, 'Mrs.'))
 	str_replace('Mrs.', 'Mistress', $split);
+    if(strpos($split, 'Dr.'))
 	str_replace('Dr.', 'Doctor', $split);
+    if(strpos($split, 'Prof.'))
 	str_replace('Prof.', 'Professor', $split);
-	$fsplit=explode("<div>",explode(".",$split)[1])[1];
+	$fsplit=explode("<div>",explode(".",$split)[0])[1];
 	}
 	$score=$arr['rating']*10;
 	if($score==100)
