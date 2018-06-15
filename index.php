@@ -39,14 +39,16 @@ class Imdb
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
     if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
 	{
-	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
-	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
-	$split=explode("<div>",explode(".",$srplit)[0])[1];
+	$split=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
+	$split2=explode("<hr>",explode("<\/div>",$split)[0])[1];
+	$delim=$split2."~";
+	$fsplit=explode("<div>",explode("~",$delim)[0])[1];
 	}
 	else
 	{
-	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
-	$split=explode("<div>",explode(".",$ssplit)[0])[1];
+	$split=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
+	$delim=$split."~";
+	$fsplit=explode("<div>",explode("~",$delim)[0])[1];
 	}
 	$score=$arr['rating']*10;
 	if($score==100)
@@ -73,9 +75,9 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
-	$split=ltrim($split);
-	$com=$arr['title']." narrates, \n".$split."."."\n\nAika's verdict is, ".$speech;
-	$com0=$arr['title']." narrates,          ".$split."."."                                            Aika's verdict is, ".$speech;
+	$fsplit=ltrim($fsplit);
+	$com=$arr['title']." narrates, \n".$fsplit."."."\n\nAika's verdict is, ".$speech;
+	$com0=$arr['title']." narrates,          ".$fsplit."."."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
 	$response->displayText = $com;
