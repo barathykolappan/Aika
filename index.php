@@ -41,14 +41,20 @@ class Imdb
 	{
 	$split=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
 	$split2=explode("<hr>",explode("<\/div>",$split)[0])[1];
-	$delim=$split2."~";
-	$fsplit=explode("<div>",explode("~",$delim)[0])[1];
+	str_replace('Mr.', 'Mister', $split2);
+	str_replace('Mrs.', 'Mistress', $split2);
+	str_replace('Dr.', 'Doctor', $split2);
+	str_replace('Prof.', 'Professor', $split2);
+	$fsplit=explode("<div>",explode(".",$split2)[0])[1];
 	}
 	else
 	{
 	$split=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
-	$delim=$split."~";
-	$fsplit=explode("<div>",explode("~",$delim)[0])[1];
+	str_replace('Mr.', 'Mister', $split);
+	str_replace('Mrs.', 'Mistress', $split);
+	str_replace('Dr.', 'Doctor', $split);
+	str_replace('Prof.', 'Professor', $split);
+	$fsplit=explode("<div>",explode(".",$split)[1])[1];
 	}
 	$score=$arr['rating']*10;
 	if($score==100)
@@ -77,7 +83,7 @@ class Imdb
 		$speech="Relative perspectives. It's upto you to decide.";
 	$fsplit=ltrim($fsplit);
 	$com=$arr['title']." narrates, \n".$fsplit."."."\n\nAika's verdict is, ".$speech;
-	$com0=$arr['title']." narrates,          ".$fsplit."."."                                            Aika's verdict is, ".$speech;
+	$com0=$arr['title']." narrates,          ".$split."."."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
 	$response->displayText = $com;
