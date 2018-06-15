@@ -39,14 +39,14 @@ class Imdb
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
     if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
 	{
-	$split=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
-	$split2=explode("<hr>",explode("<\/div>",$split)[0])[1];
-	$fsplit=explode("<div>",explode(".",$split2)[0])[1];
+	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
+	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
+	$split=explode("<div>",explode(".",$srplit)[0])[1];
 	}
 	else
 	{
-	$split=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
-	$fsplit=explode("<div>",explode(".",$split)[0])[1];
+	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
+	$split=explode("<div>",explode(".",$ssplit)[0])[1];
 	}
 	$score=$arr['rating']*10;
 	if($score==100)
@@ -73,9 +73,9 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
-	$fsplit=ltrim($fsplit);
-	$com=$arr['title']." narrates, \n".$fsplit."."."\n\nAika's verdict is, ".$speech;
-	$com0=$arr['title']." narrates,          ".$fsplit."."."                                            Aika's verdict is, ".$speech;
+	$split=ltrim($split);
+	$com=$arr['title']." narrates, \n".$split."."."\n\n Aika's verdict is, ".$speech;
+	$com0=$arr['title']." narrates,          ".$split."."."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
 	$response->displayText = $com;
@@ -97,7 +97,7 @@ class Imdb
     }
 	if($fl==0)
 	{
-    $url = "http://www.${engine}.com/search?q=IMDb+" . rawurlencode($title);
+    $url = "http://www.${engine}.com/search?q=imdb+" . rawurlencode($title);
     $ids = $this->match_all('/<a.*?href="https?:\/\/www.imdb.com\/title\/(tt\d+).*?".*?>.*?<\/a>/ms', $this->geturl($url), 1);
     if (!isset($ids[0]) || empty($ids[0])) //if search failed
       return $this->getIMDbIdFromSearch($title, $nextEngine); //move to next search engine
