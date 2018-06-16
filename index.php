@@ -7,8 +7,7 @@ if($method == 'POST'){
 	$json = json_decode($requestBody);
 	$text = $json->result->parameters->text;
 	$data=array();
-	$movieName ="Kaala karikaalan";
 	$i = new Imdb();
-	$i->getMovieInfo($movieName);
+	$i->getMovieInfo($text);
 }
 ?>
