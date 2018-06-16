@@ -9,7 +9,10 @@ if($method == 'POST'){
 	$item = $json->result->parameters->item;
 	$data=array();
 	$i = new Imdb();
-	$i->extra($item);
+	if($item==NULL)
 	$i->getMovieInfo($text);
+	else
+	$i->extra($item,$text);
+	
 }
 ?>
