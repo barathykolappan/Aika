@@ -40,7 +40,7 @@ class Imdb
     if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
-	$split=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
+	$split=explode("<hr>",explode("</div>",$ssplit)[0])[1];
 	$split=explode("<div>",explode(".",$split)[0])[1];
 	}
 	else
@@ -74,9 +74,10 @@ class Imdb
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
 	$split=ltrim($split);
-	$com=$arr['title']." narrates, \n".$split."\n\nAika's verdict is, ".$speech;
+	$com=$arr['title']." narrates, \n".$split."\n\n Aika's verdict is, ".$speech;
+	$com0=$arr['title']." narrates,          ".$split."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
-	$response->speech = $com;
+	$response->speech = $com0;
 	$response->displayText = $com;
 	$response->source = "webhook";
 	echo json_encode($response);
@@ -134,4 +135,4 @@ class Imdb
       return false;
   }
 }
-?>                                        
+?>
