@@ -75,8 +75,9 @@ class Imdb
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
 	$split=ltrim($split);
-	$com=$arr['title']." directed by ".$arr['directors']." narrates, \n".$split."\n\n Aika's verdict is, ".$speech;
-	$com0=$arr['title']." directed by ".$arr['directors']." narrates,          ".$split."                                            Aika's verdict is, ".$speech;
+	$dir1 = implode(',', $arr['directors']);
+	$com=$arr['title']." directed by ".$dir1." narrates, \n".$split."\n\n Aika's verdict is, ".$speech;
+	$com0=$arr['title']." directed by ".$dir1." narrates,          ".$split."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
 	$response->displayText = $com;
