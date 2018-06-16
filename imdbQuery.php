@@ -4,6 +4,7 @@
 //A Digital Movie Critic
 //Devised and created by Barathy A
 //////////////////////////////////////////////////////
+$ID='';
 class Imdb
 {
   // Get movie information by Movie Title.
@@ -11,6 +12,7 @@ class Imdb
   public function getMovieInfo($title, $getExtraInfo = true)
   {
     $imdbId = $this->getIMDbIdFromSearch(trim($title));
+	$ID=$imdbId;
     if($imdbId === NULL){
       $arr = array();
       $arr['error'] = "No Title found in Search Results!";
@@ -49,6 +51,9 @@ class Imdb
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
 	$split = str_replace(".", " ", $ssplit);
 	$split=explode("<div>",explode("</div>",$split)[0])[1];
+	if(strpos($split,'<a')){
+	$split=str_replace("<a href=\"/title/${ID}/plotsummary\" class=>See more &raquo;</a>", " ", $split);
+	$split=$split."..";}
 	}
 	$score=$arr['rating']*10;
 	if($score==100)
