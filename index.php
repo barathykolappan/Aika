@@ -6,8 +6,10 @@ if($method == 'POST'){
 	$requestBody = file_get_contents('php://input');
 	$json = json_decode($requestBody);
 	$text = $json->result->parameters->text;
+	$item = $json->result->parameters->item;
 	$data=array();
 	$i = new Imdb();
+	$i->extra($item);
 	$i->getMovieInfo($text);
 }
 ?>
