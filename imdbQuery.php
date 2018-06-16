@@ -74,10 +74,9 @@ class Imdb
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
 	$split=ltrim($split);
-	$com=$arr['title']." narrates, \n".$split."\n\n Aika's verdict is, ".$speech;
-	$com0=$arr['title']." narrates,          ".$split."                                            Aika's verdict is, ".$speech;
+	$com=$arr['title']." narrates, \n".$split."\n\nAika's verdict is, ".$speech;
 	$response = new \stdClass();
-	$response->speech = $com0;
+	$response->speech = $com;
 	$response->displayText = $com;
 	$response->source = "webhook";
 	echo json_encode($response);
@@ -135,4 +134,4 @@ class Imdb
       return false;
   }
 }
-?>
+?>                                        
