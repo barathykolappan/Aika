@@ -40,8 +40,8 @@ class Imdb
     if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
-	$split=explode("<hr>",explode("</div>",$ssplit)[0])[1];
-	$split=explode("<div>",explode(".",$split)[0])[1];
+	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
+	$split=explode("<div>",explode(".",$srplit)[0])[1];
 	}
 	else
 	{
