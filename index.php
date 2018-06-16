@@ -83,8 +83,23 @@ class Imdb
 	echo json_encode($response);
   }
   private function getIMDbIdFromSearch($title, $engine = "google"){
+    switch ($engine) {
+      case "google":  $nextEngine = "bing";  break;
+      case "bing":    $nextEngine = "ask";   break;
+      case "ask":     $nextEngine = "yahoo";   break;
+	  case "yahoo":     $nextEngine = "aol";   break;
+	  case "aol":     $nextEngine = "yippy";   break;
+	  case "yippy":     $nextEngine = "duckduckgo";   break;
+	  case "aol":     $nextEngine = "yippy";   break;
+	  case "yippy":     $nextEngine = "lycos";   break;
+      case FALSE:     return NULL;
+      default:        return NULL;
+    }
     $url = "http://www.${engine}.com/search?q=imdb+" . rawurlencode($title);
     $ids = $this->match_all('/<a.*?href="https?:\/\/www.imdb.com\/title\/(tt\d+).*?".*?>.*?<\/a>/ms', $this->geturl($url), 1);
+    if (!isset($ids[0]) || empty($ids[0])) //if search failed
+      return $this->getIMDbIdFromSearch($title, $nextEngine); //move to next search engine
+    else
       return $ids[0]; //return first IMDb result
   }
   private function geturl($url){
