@@ -42,7 +42,7 @@ class Imdb
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
 	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
 	$split=explode("<div>",explode("</div>",$srplit)[0])[1];
-	if(strpos($split,'<a')
+	if(strpos($split,'<a'))
 	{
 	$split=explode("<a",$split)[0];
 	}
@@ -51,7 +51,7 @@ class Imdb
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
 	$split=explode("<div>",explode("</div>",$ssplit)[0])[1];
-	if(strpos($split,'<a')
+	if(strpos($split,'<a'))
 	{
 	$split=explode("<a",$split)[0];
 	}
@@ -81,8 +81,8 @@ class Imdb
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
 	$split=ltrim($split);
-	$com=$arr['title']." narrates, \n".$split."."."\n\n Aika's verdict is, ".$speech;
-	$com0=$arr['title']." narrates,          ".$split."."."                                            Aika's verdict is, ".$speech;
+	$com=$arr['title']." narrates, \n".$split."\n\n Aika's verdict is, ".$speech;
+	$com0=$arr['title']." narrates,          ".$split."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
 	$response->displayText = $com;
