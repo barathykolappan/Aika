@@ -37,16 +37,19 @@ class Imdb
     }
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
+	$arr['directors'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Directed by.*?<\/h4>.*?<table.*?>(.*?)<\/table>/ms', $html, 1));
     if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
-	$split=explode("<hr>",explode("</div>",$ssplit)[0])[1];
+	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
+	$split=str_ireplace("."," ",$srplit);
 	$split=explode("<div>",explode("</div>",$split)[0])[1];
 	}
 	else
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
-	$split=explode("<div>",explode("</div>",$ssplit)[0])[1];
+	$split=str_ireplace("."," ",$ssplit);
+	$split=explode("<div>",explode("</div>",$split)[0])[1];
 	}
 	$score=$arr['rating']*10;
 	if($score==100)
@@ -74,14 +77,15 @@ class Imdb
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
 	$split=ltrim($split);
-	$com=$arr['title']." narrates, \n".$split."\n\nAika's verdict is, ".$speech;
-	$com0=$arr['title']." narrates,          ".$split."                                            Aika's verdict is, ".$speech;
+	$dir1 = implode(',', $arr['directors']);
+	$com=$arr['title']." directed by ".$dir1." narrates, \n".$split."."."\n\nAika's verdict is, ".$speech;
+	$com=$arr['title']." directed by ".$dir1." narrates, \n".$split."."."\n\n\n\n\n. Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
 	$response->displayText = $com;
 	$response->source = "webhook";
 	echo json_encode($response);
-  }
+  }	
   private function getIMDbIdFromSearch($title, $engine = "google"){
     switch ($engine) {
       case "google":  $nextEngine = "bing";  break;
