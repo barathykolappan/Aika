@@ -86,7 +86,12 @@ class Imdb
     switch ($engine) {
       case "google":  $nextEngine = "bing";  break;
       case "bing":    $nextEngine = "ask";   break;
-      case "ask":     $nextEngine = FALSE; break;
+      case "ask":     $nextEngine = "yahoo";   break;
+	  case "yahoo":     $nextEngine = "aol";   break;
+	  case "aol":     $nextEngine = "yippy";   break;
+	  case "yippy":     $nextEngine = "duckduckgo";   break;
+	  case "aol":     $nextEngine = "yippy";   break;
+	  case "yippy":     $nextEngine = "lycos";   break;
       case FALSE:     return NULL;
       default:        return NULL;
     }
