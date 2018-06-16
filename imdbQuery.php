@@ -41,18 +41,12 @@ class Imdb
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
 	$split=explode("<hr>",explode("</div>",$ssplit)[0])[1];
-	$split=explode("<div>",explode("</div>",$srplit)[0])[1];
-	if(strpos($split,'<a'))
-	$split=explode("<a",$split)[0];
-    else{}
+	$split=explode("<div>",explode(".",$srplit)[0])[1];
 	}
 	else
 	{
 	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
-	$split=explode("<div>",explode("</div>",$ssplit)[0])[1];
-	if(strpos($split,'<a'))
-	$split=explode("<a",$split)[0];
-    else{}
+	$split=explode("<div>",explode(".",$ssplit)[0])[1];
 	}
 	$score=$arr['rating']*10;
 	if($score==100)
