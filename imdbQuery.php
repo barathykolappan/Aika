@@ -44,6 +44,7 @@ class Imdb
 	$split=explode("<div>",explode("</div>",$srplit)[0])[1];
 	if(strpos($split,'<a'))
 	$split=explode("<a",$split)[0];
+    else{}
 	}
 	else
 	{
@@ -51,6 +52,7 @@ class Imdb
 	$split=explode("<div>",explode("</div>",$ssplit)[0])[1];
 	if(strpos($split,'<a'))
 	$split=explode("<a",$split)[0];
+    else{}
 	}
 	$score=$arr['rating']*10;
 	if($score==100)
