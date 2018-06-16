@@ -36,7 +36,6 @@ class Imdb
       return $arr;
     }
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
-	$arr['directors'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Directed by.*?<\/h4>.*?<table.*?>(.*?)<\/table>/ms', $html, 1));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
     if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
 	{
@@ -75,10 +74,8 @@ class Imdb
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
 	$split=ltrim($split);
-    $dir1 = implode(',', $arr['directors']);
-	$com=$arr['title']." directed by ".$dir1." narrates, \n".$split."\n\n Aika's verdict is, ".$speech;
-	$com0=$arr['title']." directed by ".$dir1." narrates,          ".$split."                                            Aika's verdict is, ".$speech;
-	
+	$com=$arr['title']." narrates, \n".$split."\n\nAika's verdict is, ".$speech;
+	$com0=$arr['title']." narrates,          ".$split."                                            Aika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com0;
 	$response->displayText = $com;
