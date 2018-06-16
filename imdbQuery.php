@@ -4,42 +4,10 @@
 //A Digital Movie Critic
 //Devised and created by Barathy A
 //////////////////////////////////////////////////////
-$flag=0;
 class Imdb
 {
   // Get movie information by Movie Title.
   // This method searches the given title on Google, Bing or Ask to get the best possible match.
-  public function extra($item,$text)
-  { $flag=1;
-    getMovieInfo($text);
-	$arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
-	if(strpos($item,'acted') OR strpos($item,'cast') OR strpos($item,'actors') OR strpos($item,'acted') OR strpos($item,'acted')){
-	$arr['cast'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Cast.*?<\/h4>.*?<table.*?>(.*?)<\/table>/ms', $html, 1));
-	$arr['cast'] = array_slice($arr['cast'], 0, 30);
-	$final="The cast of ".$arr['title']." includes ".$arr['cast'];
-	  }
-	  elseif(strpos($item,'director') OR strpos($item,'directed'))
-	  {
-		$arr['directors'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Directed by.*?<\/h4>.*?<table.*?>(.*?)<\/table>/ms', $html, 1));
-		$final="The director(s) of ".$arr['title']." include ".$arr['directors'];
-	  }
-	  elseif(strpos($item,'crew'))
-	  {
-		  $arr['directors'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Directed by.*?<\/h4>.*?<table.*?>(.*?)<\/table>/ms', $html, 1));
-		  $arr['cast'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Cast.*?<\/h4>.*?<table.*?>(.*?)<\/table>/ms', $html, 1));
-	$arr['cast'] = array_slice($arr['cast'], 0, 30);
-	$final="The Crew of ".$arr['title']." includes ".$$arr['directors']." and ".$arr['cast'];
-	  }
-	  else
-	  {
-		  $final="I'm Sorry. Try again?";
-	  }
-	$response = new \stdClass();
-	$response->speech = $final;
-	$response->displayText = $final;
-	$response->source = "webhook";
-	echo json_encode($response);
-  }
   public function getMovieInfo($title, $getExtraInfo = true)
   {
     $imdbId = $this->getIMDbIdFromSearch(trim($title));
@@ -67,7 +35,6 @@ class Imdb
       $arr['error'] = "No Title found on IMDb!";
       return $arr;
     }
-	if($flag==0){
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
     if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
@@ -113,7 +80,7 @@ class Imdb
 	$response->speech = $com0;
 	$response->displayText = $com;
 	$response->source = "webhook";
-	echo json_encode($response);}
+	echo json_encode($response);
   }
   private function getIMDbIdFromSearch($title, $engine = "google"){
     switch ($engine) {
