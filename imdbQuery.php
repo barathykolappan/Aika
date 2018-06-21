@@ -49,7 +49,20 @@ class Imdb
 		$arr['stars'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Stars:.*?<ul.*?>(.*?)<\/ul>/ms', $html, 1));
 		$dir=implode(" ",$arr['stars']);
 	}
-    $arr['plot'] = trim(strip_tags($this->match('/<td.*?>Plot Summary<\/td>.*?<td>.*?<p>(.*?)</ms', $html, 1)));   
+    if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
+	{
+	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
+	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
+	$split=explode("<div>",explode(".",$srplit)[0])[1];
+	}
+	else
+	{	
+	$srplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
+	if(strpos($srplit, '<a'))
+	$split=explode("<div>",explode("<a",$srplit)[0])[1];
+	else
+	$split=explode("<div>",explode("</div>",$srplit)[0])[1];
+	}  
 	$score=$arr['rating']*10;
 	if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
