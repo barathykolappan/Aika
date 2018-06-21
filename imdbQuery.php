@@ -38,6 +38,17 @@ class Imdb
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
 	$arr['directors'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Directed by.*?<\/h4>.*?<table.*?>(.*?)<\/table>/ms', $html, 1));
+	$dir=implode(" ",$arr['directors']);
+	if($dir=="")
+	{
+		$arr['producers'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Produced by.*?<\/h4>.*?<table.*?>(.*?)<\/table>/ms', $html, 1));
+		$dir=implode(" ",$arr['producers']);
+	}
+	if($dir=="")
+	{
+		$arr['stars'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Stars:.*?<ul.*?>(.*?)<\/ul>/ms', $html, 1));
+		$dir=implode(" ",$arr['stars']);
+	}
     $arr['plot'] = trim(strip_tags($this->match('/<td.*?>Plot Summary<\/td>.*?<td>.*?<p>(.*?)</ms', $html, 1)));   
 	$score=$arr['rating']*10;
 	if($score==100)
@@ -64,7 +75,7 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
-	$com=$arr['title']." by "+$arr['directors']+" narrates, \n"+$arr['plot']+"."."\n\nAika's verdict is, ".$speech;
+	$com=$arr['title']." by ".$dir." narrates, \n".$arr['plot']."."."\n\nAika's verdict is, ".$speech;
 	$response = new \stdClass();
 	$response->speech = $com;
 	$response->displayText = $com;
@@ -124,13 +135,5 @@ class Imdb
       return false;
   }
 }
-$method = $_SERVER['REQUEST_METHOD'];
-// Process only when method is POST
-if($method == 'POST'){
-	$requestBody = file_get_contents('php://input');
-	$json = json_decode($requestBody);
-	$text = $json->result->parameters->text;
-	$data=array();
-	$i = new Imdb();
-	$i->getMovieInfo($text);
+
 ?>
