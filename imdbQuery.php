@@ -37,17 +37,8 @@ class Imdb
     }
     $arr['title'] = str_replace('"', '', trim($this->match('/<title>(IMDb \- )*(.*?) \(.*?<\/title>/ms', $html, 2)));
     $arr['rating'] = $this->match('/<span class="ipl-rating-star__rating">(\d.\d)<\/span>/ms', $html, 1);
-    if(strpos($html,'TV Series') OR strpos($html,'TV Mini Series'))
-	{
-	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<div class=\"titlereference-overview-section\">",$html)[0])[1];
-	$srplit=explode("<hr>",explode("<\/div>",$ssplit)[0])[1];
-	$split=explode("<div>",explode(".",$srplit)[0])[1];
-	}
-	else
-	{
-	$ssplit=explode("<section class=\"titlereference-section-overview\">",explode("<\/div>",$html)[0])[1];
-	$split=explode("<div>",explode(".",$ssplit)[0])[1];
-	}
+	$arr['directors'] = $this->match_all_key_value('/<a href="\/name\/(nm\d+).*?>(.*?)<\/a>/ms', $this->match('/Directed by.*?<\/h4>.*?<table.*?>(.*?)<\/table>/ms', $html, 1));
+    $arr['plot'] = trim(strip_tags($this->match('/<td.*?>Plot Summary<\/td>.*?<td>.*?<p>(.*?)</ms', $html, 1)));   
 	$score=$arr['rating']*10;
 	if($score==100)
 		$speech="An absolute Masterpiece!, Dare not miss it.";
@@ -73,11 +64,9 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
-	$split=ltrim($split);
-	$com=$arr['title']." narrates, \n".$split."."."\n\nAika's verdict is, ".$speech;
-	$com0=$arr['title']." narrates,          ".$split."."."                                            Aika's verdict is, ".$speech;
+	$com=$arr['title']." by "+$arr['directors']+" narrates, \n"+$arr['plot']+"."."\n\nAika's verdict is, ".$speech;
 	$response = new \stdClass();
-	$response->speech = $com0;
+	$response->speech = $com;
 	$response->displayText = $com;
 	$response->source = "webhook";
 	echo json_encode($response);
@@ -135,4 +124,13 @@ class Imdb
       return false;
   }
 }
+$method = $_SERVER['REQUEST_METHOD'];
+// Process only when method is POST
+if($method == 'POST'){
+	$requestBody = file_get_contents('php://input');
+	$json = json_decode($requestBody);
+	$text = $json->result->parameters->text;
+	$data=array();
+	$i = new Imdb();
+	$i->getMovieInfo($text);
 ?>
