@@ -94,7 +94,8 @@ class Imdb
 	$response->displayText = $com;
 	$response->source = "webhook";
 	echo json_encode($response);
-	die();
+	$a = ["expect_user_response" => false];
+    echo json_encode($a);
   }
   private function getIMDbIdFromSearch($title, $engine = "google"){
     switch ($engine) {

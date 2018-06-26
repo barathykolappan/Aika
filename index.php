@@ -9,21 +9,8 @@ if($method == 'POST'){
 	$data=array();
 	$i = new Imdb();
 	$i->getMovieInfo($text);
-}
-$a = [
- "expect_user_response" => false,
- "final_response" => [
- "rich_response" => [
-  "items" => [
-    [
-      "simple_response" => [
-        "text_to_speech" => "Once More?",
-        "display_text" => "Once More?"
-        ]
-      ]
-     ]
-    ]
-  ]
-];
+	$a = ["expect_user_response" => false];
 echo json_encode($a);
+}
+
 ?>
