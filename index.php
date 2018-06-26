@@ -12,13 +12,13 @@ if($method == 'POST'){
 }
 $a = [
  "expect_user_response" => false,
- "finalResponse" => [
- "richResponse" => [
+ "final_response" => [
+ "rich_response" => [
   "items" => [
     [
-      "simpleResponse" => [
-        "textToSpeech" => "Once More?",
-        "displayText" => "Once More?"
+      "simple_response" => [
+        "text_to_speech" => "Once More?",
+        "display_text" => "Once More?"
         ]
       ]
      ]
