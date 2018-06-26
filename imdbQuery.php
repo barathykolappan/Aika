@@ -148,5 +148,4 @@ class Imdb
       return false;
   }
 }
-
 ?>

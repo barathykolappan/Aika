@@ -9,8 +9,6 @@ if($method == 'POST'){
 	$data=array();
 	$i = new Imdb();
 	$i->getMovieInfo($text);
-	$a = ["expect_user_response" => false];
-echo json_encode($a);
 }
 
 ?>
