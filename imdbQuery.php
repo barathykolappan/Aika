@@ -88,7 +88,7 @@ class Imdb
 		$speech="Please. No. I only speak ethical language.";
 		else
 		$speech="Relative perspectives. It's upto you to decide.";
-	$com=$arr['title']." by ".$dir." narrates, \n".$split	."\n\nAika's verdict is, ".$speech;
+	$com=$arr['title']." by ".$dir." narrates, \n".$split	."\n\nAika's verdict is, ".$speech."\n\nOne more?";
 	$response = new \stdClass();
 	$response->speech = $com;
 	$response->displayText = $com;
