@@ -10,4 +10,20 @@ if($method == 'POST'){
 	$i = new Imdb();
 	$i->getMovieInfo($text);
 }
+$a = [
+ "expect_user_response" => false,
+ "finalResponse" => [
+ "richResponse" => [
+  "items" => [
+    [
+      "simpleResponse" => [
+        "textToSpeech" => "Once More?",
+        "displayText" => "Once More?"
+        ]
+      ]
+     ]
+    ]
+  ]
+];
+echo json_encode($a);
 ?>
